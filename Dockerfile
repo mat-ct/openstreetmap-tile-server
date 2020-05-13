@@ -63,9 +63,9 @@ RUN apt-get install -y --no-install-recommends \
   osmium-tool \
   osmosis \
   postgis \
-  postgresql-12 \
-  postgresql-contrib-12 \
-  postgresql-server-dev-12 \
+  postgresql-10 \
+  postgresql-contrib-10 \
+  postgresql-server-dev-10 \
   protobuf-c-compiler \
   python3-mapnik \
   python3-lxml \
@@ -152,11 +152,11 @@ RUN ln -sf /dev/stdout /var/log/apache2/access.log \
  && ln -sf /dev/stderr /var/log/apache2/error.log
 
 # Configure PosgtreSQL
-COPY postgresql.custom.conf.tmpl /etc/postgresql/12/main/
+COPY postgresql.custom.conf.tmpl /etc/postgresql/10/main/
 RUN chown -R postgres:postgres /var/lib/postgresql \
- && chown postgres:postgres /etc/postgresql/12/main/postgresql.custom.conf.tmpl \
- && echo "host all all 0.0.0.0/0 md5" >> /etc/postgresql/12/main/pg_hba.conf \
- && echo "host all all ::/0 md5" >> /etc/postgresql/12/main/pg_hba.conf
+ && chown postgres:postgres /etc/postgresql/10/main/postgresql.custom.conf.tmpl \
+ && echo "host all all 0.0.0.0/0 md5" >> /etc/postgresql/10/main/pg_hba.conf \
+ && echo "host all all ::/0 md5" >> /etc/postgresql/10/main/pg_hba.conf
 
 # Copy update scripts
 COPY openstreetmap-tiles-update-expire /usr/bin/
