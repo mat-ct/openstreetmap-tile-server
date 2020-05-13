@@ -10,10 +10,18 @@ ENV UPDATES=disabled
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 # Install dependencies
-RUN echo "deb [ allow-insecure=yes ] http://apt.postgresql.org/pub/repos/apt/ bionic-pgdg main" >> /etc/apt/sources.list.d/pgdg.list \
+RUN apt-get update \
+  && apt-get install wget gnupg2 lsb-core -y \
+  && wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - \
+  && echo "deb [ trusted=yes ] https://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" | tee /etc/apt/sources.list.d/pgdg.list \
   && apt-get update \
-  && apt-get install -y apt-transport-https ca-certificates \
-  && apt-get install -y --no-install-recommends --allow-unauthenticated \
+  && apt-get install -y apt-transport-https ca-certificates
+
+RUN apt-get install -y curl \
+  && wget --quiet -O - https://deb.nodesource.com/setup_10.x | bash - \
+  && apt-get install -y nodejs
+
+RUN apt-get install -y --no-install-recommends \
   apache2 \
   apache2-dev \
   autoconf \
