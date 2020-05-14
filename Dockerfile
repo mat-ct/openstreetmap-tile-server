@@ -57,12 +57,11 @@ RUN apt-get install -y --no-install-recommends \
   lua5.3 \
   make \
   mapnik-utils \
-  nodejs \
-  npm \
+  node-gyp \
   postgis \
   postgresql-10 \
-  postgresql-10-postgis-2.5 \
-  postgresql-10-postgis-2.5-scripts \
+  postgresql-10-postgis-2.4 \
+  postgresql-10-postgis-2.4-scripts \
   postgresql-contrib-10 \
   protobuf-c-compiler \
   python-mapnik \
